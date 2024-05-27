@@ -41,19 +41,16 @@ def preprocess_images_labels(images, labels):
     return images, labels
 
 def main():
-    # Load and preprocess data
     (train_images, train_labels), (test_images, test_labels) = datasets.mnist.load_data()
     train_images, train_labels = preprocess_images_labels(train_images, train_labels)
     test_images, test_labels = preprocess_images_labels(test_images, test_labels)
 
-    # Train classic model
     classic_model = build_lenet5_classic()
     classic_model.summary()
     classic_model.fit(train_images, train_labels, epochs=10, validation_split=0.1)
     test_loss, test_acc = classic_model.evaluate(test_images, test_labels)
     print(f"Classic Model Test Accuracy: {test_acc * 100:.2f}%")
 
-    # Train optimized model
     optimized_model = build_lenet5_optimized()
     optimized_model.summary()
     optimized_model.fit(train_images, train_labels, epochs=10, validation_split=0.1)
